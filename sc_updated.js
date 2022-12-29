@@ -1,12 +1,11 @@
 
 let cartBasket = document.querySelector('.cart-content');
 
-// 1.-->1.Addto cart
-let cartBtns = document.querySelectorAll('.add-cart');
+// / 1.-->1.Addto cart
+let cartBtns = document.querySelectorAll('.add-cart-btn');
 cartBtns.forEach((btn) => {
     btn.addEventListener('click', addCart);
-    
-    // updateTotal();
+
 });
 
 var productList = [];
@@ -16,8 +15,9 @@ function addCart() {
     let watch = this.parentElement;
     let title = watch.querySelector('.watch-title').innerHTML;
     let price = watch.querySelector('.watch-price').innerHTML;
-    let imgSrc=watch.querySelector('.watch-img').src;
+    let imgSrc = watch.querySelector('.watch-img').src;
     var priceNum = parseInt(price.replace("price:", "").replace(",", ""));
+
     let product = {
         name: title,
         price: priceNum,
@@ -43,16 +43,15 @@ function addCart() {
         });
     }
 
-    let newProductElement= createCartProduct(title,price,imgSrc);
-    let element=document.createElement('div');
-    element.innerHTML=newProductElement;
-    let cartBasket=document.querySelector('.cart-content');
+    let newProductElement = createCartProduct(title, price, imgSrc);
+    let element = document.createElement('div');
+    element.innerHTML = newProductElement;
+
     cartBasket.append(element);
-        
-    
-    function createCartProduct(title,price,imgSrc){
-    
-      return `
+
+    function createCartProduct(title, price, imgSrc) {
+
+        return `
       <div class="cart-box">
       <img src="${imgSrc}" class="cart-img">
       <div class="detail-box">
@@ -67,15 +66,14 @@ function addCart() {
     </div>
       `
     }
-    let initialPriceOfProduct =document.querySelectorAll('.cart-price');
-    let totalPriceOfeachProduct = document.querySelector('.cart-amt');
-    // cart-amt
-    initialPriceOfProduct.forEach((initialPrice) =>{
-       console.log("initialPrice",initialPrice);
-       console.log(product.quantity);
-    })
+
 
 }
+
+
+
+
+
 
 
 
