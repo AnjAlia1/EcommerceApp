@@ -1,0 +1,60 @@
+
+.watches{
+    display: flex;
+    flex-direction: row;
+    
+}
+/* body{
+    background-color:#4b4b4b;
+  } */
+
+  *{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color:#4b4b4b;
+  }
+  .container{
+    max-width: 1200px;
+    padding: 4rem;
+    margin: auto;
+    width: 100%;
+  }
+  .add-cart{
+    /* position: absolute; */
+   
+    
+    /* right: 0;  */
+    background-color: #2ed573;
+    color:white;
+    padding: 8px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  .watch{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    border:5px solid white;
+  }
+  .watch-img{
+    margin: 20px;
+  }
+  .watch-title{
+    color: #ff6348;
+  }
+  .cart-img{
+    width: 30px;
+  }
+  .cart-content{
+    display: flex;
+    flex-direction: column;
+  }
+  .cart-box{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    border:5px solid white;
+  }
