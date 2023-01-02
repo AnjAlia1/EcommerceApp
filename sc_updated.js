@@ -1,28 +1,31 @@
 
 let cartBasket = document.querySelector('.cart-content');
-var cartId = 0;
-// var sum=0;
+let cartId = 0;
 
-// / 1.-->1.Addto cart
+
+let element = document.createElement('div');
+
 let cartBtns = document.querySelectorAll('.add-cart-btn');
 cartBtns.forEach((btn) => {
-    btn.addEventListener('click', addCart);
-
+    btn.addEventListener('click',(event)=>{
+         addCart(event);
+    } );
 });
 
-var productList = [];
+// ()-using ()-will call function right now
+let productList = [];
 
-function addCart() {
-    // Updatetotalprice();
-    // updatePrice();
+function addCart(event) {
+    
     console.log("called");
-    let watch = this.parentElement;
+    console.log("etarget",event.target);
+    let watch = event.target.parentElement;
     let title = watch.querySelector('.watch-title').innerHTML;
     let price = watch.querySelector('.watch-price').innerHTML;
     let imgSrc = watch.querySelector('.watch-img').src;
-    var priceNum = parseInt(price.replace("price : ", "").replace(",", ""));
-    console.log("priceNum",priceNum);
-
+    let priceNum = parseInt(price.replace("price : ", "").replace(",", ""));
+    console.log("priceNum",priceNum);   
+    let newProductElement = createCartProduct(title, price, imgSrc);
 
     let product = {
         name: title,
@@ -30,83 +33,86 @@ function addCart() {
         quantity: 1,
         id:cartId,
         img:imgSrc,
-        // total:product.priceNum*product.quantity
     };
     if (productList.length === 0) {
         productList.push(product);
         console.log("pro", productList);
+        element = document.createElement('div');
+
+    cartBasket.append(element);
+        createCartProduct(title, price, imgSrc);
         cartId++;
     }
 
     else {
-        productList.forEach((cartProduct, index, arr) => {
+        productList.forEach((cartProduct, index, productList) => {
             if (cartProduct.name === product.name) {
-                arr[index].price += product.price;
-                arr[index].quantity += product.quantity;
-                console.log("arr", arr);
-
+                console.log("cart",cartProduct);
+                console.log("cartPrice",cartProduct.price);
+                 cartProduct.price += product.price;
+                cartProduct.quantity += product.quantity;
             }
             else {
                 productList.push(product);
-                console.log("arr", arr);
+                element = document.createElement('div');
+                 cartBasket.append(element);
                 cartId++;
-
+                createCartProduct(title, price, imgSrc);
             }
         });
 
     }
-
-    // productList.map((value) => {
-    //     return `<div class="cart-box" id="cartno${value.cartId}"><img src="${value.img}" class="cart-img"> <div class="detail-box"> <div class="cart-food-title">${value.title}</div><div class="price-box"> <div class="cart-price">${value.price}</div><div class="cart-amt">${value.price}</div> </div><input name="${value.title}" type="number" value="1" class="cart-quantity" onchange="changeQuantity(this)"> </div> <ion-icon name="trash" class="cart-remove"></ion-icon> </div> ` 
-    //   })
-
-    let element = document.createElement('div');
-
-    cartBasket.append(element);
-   
-    let newProductElement = createCartProduct(title, price, imgSrc);
-    
-    // // cartId++;
     element.innerHTML = newProductElement;
-    // Updatetotalprice();
-    console.log("pname", product.name);
-
+    
 }
 
 
 // !create product on clicking add to cart
 
+
 function createCartProduct(title, price, imgSrc) {
     return `
   <div class="cart-box" id="cartno${cartId}">
-  <img src="${imgSrc}" class="cart-img">
-  <div class="detail-box">
-    <div class="cart-food-title">${title}</div>
-    <div class="price-box">
-      <div class="cart-price">${price}</div>
-       <div id="totalprice${cartId}" class="cart-amt">${price}</div>
-   </div>
-    <input name="${title}" type="number" value="1" class="cart-quantity" onchange="changeQuantity(this)">
+    <img src="${imgSrc}" class="cart-img">
+    <div class="detail-box">
+        <div class="cart-food-title">${title}</div>
+        <div class="price-box">
+                <div class="cart-price">${price}</div>
+                <div id="totalprice${cartId}" class="cart-amt">${price}</div>
+                <input name="${title}" type="number" value="1" class="cart-quantity" onchange="changeQuantity(event)"/>
+                <ion-icon name="trash" class="cart-remove" onclick="removeProductFromCart(event)"></ion-icon>
+        </div>
+    </div>
   </div>
-  <ion-icon name="trash" class="cart-remove"></ion-icon>
-</div>
   `
 }
 
+// .previouslement sibling
+// !on Incresing quantity
 
-function changeQuantity(product) {
-    console.log("changed");
-    productList.forEach((value,index,arr)=>{
-        if(product.name===value.name){
-           arr[index].quantity=product.value;
-            console.log(arr[index]);
-            document.getElementById(`totalprice${cartId}`).innerHTML=arr[index].price*arr[index].quantity;
-        }
-    })
-    
-    console.log("productlist",productList);
+function changeQuantity(event) {
+     console.log("anjd");
+     let singleProductPrice=event.target.parentElement.children[0].innerHTML.replace("price : ","").replace(",","");
+     let totalPriceOfEachTypeProduct=event.target.parentElement.children[1];
+     console.log("ghhg",event.target.parentElement.children[1].innerHTML);
+    let quantity = event.target.parentElement.children[2].value;
+    totalPriceOfEachTypeProduct.innerHTML =quantity*singleProductPrice;
+    console.log(totalPriceOfEachTypeProduct);
+}
 
-    
+
+function removeProductFromCart(event) {
+    let remove =event.target.parentElement.parentElement.parentElement;
+    console.log(remove);
+    remove.style.display="none";
+}
+
+function removeCart() {
+
+}
+
+function countCartProduct(title) {
+
 }
 // For each -To read
 // Map- 
@@ -115,16 +121,6 @@ function changeQuantity(product) {
 // Destructing--
 // 
 
-// var tishal = "";
-// function updatePrice() {
-//     let carAmount = document.querySelector('.cart-amt');
-//     let carPrice = document.querySelectorAll('.cart-price');
-//     for (cp of carPrice) {
-//         console.log("carp", cp);
-//     }
-//     // carAmount.innerHTML=quantityvalue   ;
-
-// }
 
 
 
