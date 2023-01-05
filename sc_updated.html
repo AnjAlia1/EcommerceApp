@@ -6,12 +6,17 @@
   <link rel="stylesheet" href="sc_updated.css">
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script src="https://kit.fontawesome.com/98db0803c5.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/98db0803c5.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container">
     <div class="nav">
       <h3>Watch Store</h1>
-      <div class="total-price">Rs.0</div>
+      <!-- <div class="total-price">Rs.0</div> -->
+      <div class="total">
+        <div class="total-title">Total</div>
+        <div id="total-price">Rs.0</div>
+      </div>
     </div>
     
     <div class="watches">
@@ -63,10 +68,14 @@
         </div>
         <button class="add-cart-btn" id="4">Add to Cart</button>
       </div>
-
+      
     </div>
   
-    <div class="cart-content"></div>
+    <div class="cart-content" id="cart-items">
+    
+    </div>
+   <i class="fa-regular fa-circle-xmark" onclick="removeCart(event)"></i>
+    <i class="fa-regular fa-check-circle" onclick="addCartBack(event)"></i>
   </div>
   <script src="sc_updated.js"></script>
 </body>
